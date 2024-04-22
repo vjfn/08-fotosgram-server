@@ -11,7 +11,7 @@ const server = new Server();
 
 
 //Middleware bodyparser
-server.app.use(bodyParser.urlencoded({extended: true}));
+server.app.use(bodyParser.urlencoded({ extended: true }));
 server.app.use(bodyParser.json());
 
 //Rutas de mi app
@@ -26,13 +26,13 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-db.once('open', function() {
-  // estamos conectados!
-  console.log('Connected to MongoDB');
-});    
+db.once('open', function () {
+    // estamos conectados!
+    console.log('Connected to MongoDB');
+});
 
 
 // Levantar express
-server.start( ()=> {
+server.start(() => {
     console.log(`Servidor corriendo en puerto: ${server.port}`)
 })

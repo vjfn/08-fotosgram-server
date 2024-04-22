@@ -1,4 +1,7 @@
 import { Schema, model, Document } from "mongoose";
+import bcrypt, { compare, compareSync } from 'bcrypt';
+
+
 
 const usuarioSchema = new Schema({
 
@@ -26,6 +29,15 @@ const usuarioSchema = new Schema({
 
 });
 
+usuarioSchema.method('compararPassword', function( password: string= ''): boolean{
+
+    if (bcrypt.compareSync(password, this.password)){
+        return true
+    }else{
+        return false;
+    }
+})
+
 usuarioSchema.pre<IUsuario>('save', function (next) {
     this.created = new Date();
     next();
@@ -37,6 +49,8 @@ interface IUsuario extends Document {
     password: string;
     avatar: string;
     created: Date;
+
+    compararPassword(password: string): boolean;
 }
 
 

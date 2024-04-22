@@ -27,3 +27,7 @@ npm install express body-parser cors mongoose express-fileupload jsonwebtoken bc
 npm install @types/express --save-dev //instalacion del tipado
 
 npm install @types/mongoose --save-dev //instalacion del tipado
+
+npm install @types/bcrypt --save-dev //instalacion del tipado
+
+npm install @types/jsonwebtoken --save-dev //instalacion del tipado
