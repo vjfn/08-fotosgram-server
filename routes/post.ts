@@ -1,10 +1,16 @@
 import { Router, Request, Response } from "express";
 import { verificaToken } from "../middlewares/authentication";
 import { Post } from "../models/post.model";
+import { FileUpload } from "../interfaces/file-upload";
+import { UploadedFile } from "express-fileupload";
+import { FileSystem } from "../classes/file-system";
+import { Usuario } from '../models/usuario.model';
 
 
 
 const postRoutes = Router();
+
+const fileSystem = new FileSystem();
 
 
 
@@ -15,6 +21,10 @@ postRoutes.post('/', [verificaToken], async (req: any, res: Response) => {
     try {
         const body = req.body;
         body.usuario = req.usuario._id;
+
+        const imagenes = fileSystem.imagenesDeTempHaciaPost (req.usuario._id);
+        body.imgs = imagenes;
+
 
         const postDB = await Post.create(body);
 
@@ -34,7 +44,7 @@ postRoutes.post('/', [verificaToken], async (req: any, res: Response) => {
 
 
 //READ post paginado
-postRoutes.get('/', [verificaToken], async (req: any, res: Response) => {
+ postRoutes.get('/', [verificaToken], async (req: any, res: Response) => {
 
     /* _id -1 ordenar descendente, empezando por el último */
 
@@ -55,6 +65,7 @@ postRoutes.get('/', [verificaToken], async (req: any, res: Response) => {
 
     res.json({
         ok: true,
+        pagina,
         posts
 
 
@@ -64,7 +75,7 @@ postRoutes.get('/', [verificaToken], async (req: any, res: Response) => {
 
 
 // Servicio para subir archivos
-postRoutes.post('/upload', [verificaToken], (req: Request, res: Response) => {
+postRoutes.post('/upload', [verificaToken], async (req: any, res: Response) => {
 
     if (!req.files) {
         return res.status(400).json({
@@ -73,16 +84,31 @@ postRoutes.post('/upload', [verificaToken], (req: Request, res: Response) => {
         });
     }
 
-    const file = req.files.image
+    const file: FileUpload = req.files.image as UploadedFile
+
+    if(!file) {
+        return res.status(400).json({
+            ok: false,
+            mensaje: 'No se subio ningun archivo - imagen'
+        });
+    }
+
+    if(!file.mimetype.includes('image') ) {
+        return res.status(400).json({
+            ok: false,
+            mensaje: 'No me mandes cosas que no sean una imagen'
+        });
+    }
+
+    await fileSystem.guardarImagenTemporal(file, req.usuario._id);
 
     res.json({
-        ok: false,
+        ok: true,
         mensaje: 'Imagen gestionada',
-        file        
+        file: file.mimetype
 
     })
 
-    console.log(file)
 });
 
 

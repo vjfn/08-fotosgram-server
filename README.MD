@@ -19,6 +19,8 @@ npm install express-fileupload //recibir peticiones de imagenes y gestionarlas
 npm install jsonwebtoken //web token para mantener de forma pasiva la sesion activa del usuario
 npm install bcrypt //encriptar las contraseñas de los usuarios y tener almacenadas las contraseñas de forma segura
 
+npm install uniqid //extension generador de id unica 
+
 
 npm install express body-parser cors mongoose express-fileupload jsonwebtoken bcrypt
 
@@ -33,3 +35,5 @@ npm install @types/bcrypt --save-dev //instalacion del tipado
 npm install @types/jsonwebtoken --save-dev //instalacion del tipado
 
 npm install @types/express-fileupload --save-dev //instalacion del tipado
+
+npm install @types/uniqid --save-dev //instalacion del tipado

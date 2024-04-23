@@ -11,16 +11,17 @@ import fileUpload from 'express-fileupload'
 
 const server = new Server();
 
-//MIDDLEWARE
 
-//bodyParser-Middleware
+//MIDDLEWARE el orden es importante, segun su uso
+
+//bodyParser-Middleware body parser va siempre primero
 server.app.use(bodyParser.urlencoded({ extended: true }));
 server.app.use(bodyParser.json());
 
-//fileUpload-Middleware
+//fileUpload-Middleware, gestor de archivos
 server.app.use( fileUpload());
 
-//Rutas de mi app
+//Rutas de mi app, las rutas van al final 
 server.app.use('/user', userRoutes)
 server.app.use('/posts', postRoutes)
 
