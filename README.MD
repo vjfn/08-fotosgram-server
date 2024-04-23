@@ -31,3 +31,5 @@ npm install @types/mongoose --save-dev //instalacion del tipado
 npm install @types/bcrypt --save-dev //instalacion del tipado
 
 npm install @types/jsonwebtoken --save-dev //instalacion del tipado
+
+npm install @types/express-fileupload --save-dev //instalacion del tipado

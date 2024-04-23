@@ -4,23 +4,28 @@ import userRoutes from './routes/usuario';
 import mongoose from 'mongoose';
 
 import bodyParser from 'body-parser';
+import postRoutes from './routes/post';
 
+import fileUpload from 'express-fileupload'
 
 
 const server = new Server();
 
+//MIDDLEWARE
 
-//Middleware bodyparser
+//bodyParser-Middleware
 server.app.use(bodyParser.urlencoded({ extended: true }));
 server.app.use(bodyParser.json());
 
+//fileUpload-Middleware
+server.app.use( fileUpload());
+
 //Rutas de mi app
 server.app.use('/user', userRoutes)
+server.app.use('/posts', postRoutes)
 
 //Conexion a DB (protocolo,puerto,nombre de bd)
-
-
-//Conexion segura a BD
+//TODO Conexion segura a BD
 mongoose.connect(`mongodb://localhost:27017/fotosgram`);
 const db = mongoose.connection;
 

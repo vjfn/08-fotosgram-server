@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { Usuario } from '../models/usuario.model';
 import bcrypt from 'bcrypt'
 import Token from '../classes/token';
-import { verificaToken } from "./middlewares/authentication";
+import { verificaToken } from "../middlewares/authentication";
 
 const userRoutes = Router();
 
@@ -91,9 +91,9 @@ userRoutes.post('/create', (req: Request, res: Response) => {
 userRoutes.put('/update', verificaToken, async (req: any, res: Response) => {
     try {
         const user = {
-            nombre: req.body.nombre,
-            email: req.body.nombre,
-            avatar: req.body.nombre
+            nombre: req.body.nombre || req.usuario.nombre,
+            email: req.body.email || req.usuario.email,
+            avatar: req.body.avatar || req.usuario.avatar,
         };
 
         const userDB = await Usuario.findByIdAndUpdate(req.usuario._id, user, { new: true });
