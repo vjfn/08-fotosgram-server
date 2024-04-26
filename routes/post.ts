@@ -43,8 +43,8 @@ postRoutes.post('/', [verificaToken], async (req: any, res: Response) => {
 
 
 
-//READ post paginado
- postRoutes.get('/', [verificaToken], async (req: any, res: Response) => {
+//READ post paginado , añadir el token: postRoutes.get('/', [verificaToken], async (req: any, res: Response) => {
+ postRoutes.get('/',  async (req: any, res: Response) => {
 
     /* _id -1 ordenar descendente, empezando por el último */
 
@@ -110,6 +110,19 @@ postRoutes.post('/upload', [verificaToken], async (req: any, res: Response) => {
     })
 
 });
+
+postRoutes.get('/imagen/:userid/:img', (req: any, res: Response) => {
+
+    const userId = req.params.userid;
+    const img = req.params.img;
+
+    const pathFoto = fileSystem.getFotoUrl(userId, img);
+
+    res.sendFile( pathFoto);
+
+});
+
+
 
 
 

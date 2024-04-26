@@ -153,28 +153,32 @@ userRoutes.put('/update', verificaToken, async (req: any, res: Response) => {
                 token: tokenUser 
             });
 
-
-
-
     });
 
     res.json({
         ok: true,
         usuario: req.usuario
     });
-
-
-
 });
  */
 
-//TEST
+userRoutes.get('/', [verificaToken], (req: any, res: Response) => {
 
-userRoutes.get('/prueba', (req: Request, res: Response) => {
+    const usuario = req.usuario;
 
     res.json({
-        ok: true,
-        mensaje: 'Todo funciona bien!'
+        ok:true,
+        usuario
+    })
+})
+
+
+//TEST
+
+userRoutes.get('/healthcheck', (req: Request, res: Response) => {
+
+    res.json({
+        health: 'Ok'
     })
 })
 

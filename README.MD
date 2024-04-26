@@ -37,3 +37,7 @@ npm install @types/jsonwebtoken --save-dev //instalacion del tipado
 npm install @types/express-fileupload --save-dev //instalacion del tipado
 
 npm install @types/uniqid --save-dev //instalacion del tipado
+
+npm i --save-dev @types/cors //instalacion del tipado
+
+https://9gag.com/gag/apRq0pn

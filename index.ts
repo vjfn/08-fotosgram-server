@@ -3,6 +3,8 @@ import userRoutes from './routes/usuario';
 
 import mongoose from 'mongoose';
 
+import cors from 'cors';
+
 import bodyParser from 'body-parser';
 import postRoutes from './routes/post';
 
@@ -21,7 +23,11 @@ server.app.use(bodyParser.json());
 //fileUpload-Middleware, gestor de archivos
 server.app.use( fileUpload());
 
-//Rutas de mi app, las rutas van al final 
+//Configurar CORS
+server.app.use(cors({ origin: true, credentials: true}));
+
+//Rutas de mi app, las rutas van al final
+server.app.use('/', userRoutes) 
 server.app.use('/user', userRoutes)
 server.app.use('/posts', postRoutes)
 
